@@ -1,0 +1,206 @@
+/* CSS STYLES FOR "settings copy 2.html" */
+
+
+
+/* ======================= PREMAIN ============== */
+
+
+
+.font-size-settings{
+    font-size: 18px;
+}
+
+
+
+/* ======================= PREMAIN END ============== */
+
+
+
+
+/* ======================== MAIN CONTEINER ================ */
+
+
+.content-item-done{
+    width: 60em;
+}
+
+.content-item-create{
+    width: 60em;
+}
+
+.content-item{
+    margin-top: 5em;
+    margin-left: 5em;
+}
+
+.input-mms{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    color: gray;
+    margin-right: 2em;
+}
+
+
+.btn-save{
+    font-size: 16px;
+}
+
+.btn-send{
+    font-size: 16px;
+}
+
+
+.btn-save.create{
+    font-size: 16px;
+}
+
+.btn-send.create{
+    font-size: 16px;
+}    
+
+
+.add-btn{
+    font-size: 16px;
+}
+
+
+
+
+
+
+/* ======================== MAIN CONTEINER END ================ */
+
+
+
+
+/* ========================== MEDIA SCREEN ======================= */
+
+
+
+
+@media (max-width:1024px){
+    .media-size-block{
+        margin-left: 0;
+        width: 55em;
+        margin-right: 5em;
+    }
+}
+
+
+@media (max-width:768px){
+    .media-size-block{
+    width: 40em;
+    }
+    .input-title{
+        margin: 0;
+        padding: 10px 0;
+        text-align: center;
+    }
+    .input-mms{
+        text-align: center;
+    }
+    .btn-close img{
+        padding: 0;
+    }
+
+}
+
+
+@media (max-width:640px) {
+    .media-size-block{
+        width: 35em;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .input-block{
+        margin-left: 1em;
+    }
+    .button-block{
+        margin-left: 1.5em;
+    }
+    .button-block.second{
+        margin-left: .5em   ;
+    }
+    .btn-send.create{
+        margin-left: 1em;
+    }
+}
+
+
+@media (max-width:550px){
+    .main{
+        display: grid;
+        grid-template-columns: 12fr;
+    }
+    .main-conteiner h2{
+        margin: 0;
+    }
+    .media-size-block{
+        width: 30em;
+        margin: 0;
+        margin-left: 2em;
+        text-align: center;
+    }
+    .media-size-block input{
+        margin: 0;
+    }
+    .font-size-settings.input-title{
+        margin-top: 1em;
+        margin-bottom: .5em;
+    }
+}
+
+
+@media (max-width:500px){
+    .media-size-block{
+        margin-left: 0;
+    }
+}
+
+
+@media (max-width:425px){
+    .media-size-block{
+        width: 22em;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .button-block{
+        margin: 0;
+        margin-left: 1.5em;
+    }
+    .btn-close{
+        margin: 0;
+        margin-top: .9em;
+        margin-left: 1em;
+        padding-bottom: 5px;
+    }
+    .button-block.second{
+        margin: 0;
+        margin-left: 1em;
+    }
+}
+
+
+@media (max-width:380px){
+    .media-size-block{
+        width: 22em;
+        margin: 0;
+    }
+    .button-block{
+        margin: 0;
+    }
+    .btn-close{
+        margin-left: .5em;
+    }
+}
+
+
+
+
+
+
+
+
+/* ========================== MEDIA SCREEN END ======================= */

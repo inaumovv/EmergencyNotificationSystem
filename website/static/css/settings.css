@@ -1,0 +1,601 @@
+/* ====================== PREMAIN ====================== */
+
+body{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+
+button{
+    border: none;
+}
+
+/* ====================== PREMAIN END ====================== */
+
+
+/* ========================= SIDE BAR ======================= */
+
+
+.side-bar{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    border-right: 0.5px solid rgb(212, 212, 212);
+}
+
+.ul{
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.h3{
+    font-size: 21px;
+}
+
+.main{
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.link-settings{
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    padding-right: 0;
+    margin-right: 1em;
+    border-radius: 5px;
+    font-weight: 550;
+}
+
+.link-settings.active{
+    background-color: rgba(236, 236, 236, 0.521);
+}
+
+.link-settings:hover{
+    background-color: rgba(236, 236, 236, 0.521);
+}
+
+
+.header{
+    z-index: 3;
+}
+
+.header__menu__burger-btn{
+    display: none;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: aqua;
+    z-index: 2;
+}
+
+.header__menu__burger-btn:hover{
+    cursor: pointer;
+}
+
+.header__menu__burger-btn span{
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    background-color: black;
+    left: 5px;
+    transition: transform .5s, opacity .5s, background-color .5s;
+
+}
+
+.header__menu__burger-btn span:nth-child(1){
+    transform: translateY(-10px);
+}
+
+.header__menu__burger-btn span:nth-child(3){
+    transform: translateY(10px);
+}
+
+.side-bar.open .header__burger-btn span:nth-child(2) {
+    opacity: 0;
+}
+
+.h4{
+    padding-bottom: 1em;
+    border-bottom: 0.5px solid gray;
+}
+
+.log-out img{
+    width: 28px;
+}
+
+.li-btn-log-out{
+    display: block;
+    text-align: center;
+}
+
+.log-out{
+    padding: 5px;
+    margin-top: 2em;
+    background-color: transparent;
+    cursor: pointer;
+    border: none;
+}
+
+.log-out:hover{
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+
+
+
+/* ========================= SIDE BAR END ======================= */
+
+
+/* ============================= MAIN CONTEINER =================== */
+
+
+.main-conteiner{
+    margin-top: 10px;
+}
+
+.main-conteiner h2{
+    margin-top: 1em;
+    text-align: start;
+    margin-left: 3em;
+}
+
+
+/*============================ CONTENT ITEM ============================*/
+
+
+
+.content-conteniner{
+    display: block;
+    margin-top: 5em;
+}
+
+.font-size-settings{
+    font-size: 16px;
+}
+
+.content-item-done{
+    width: 70em;
+    margin-left: 5em;
+    border-bottom: 1px solid gray;
+    margin-top: 3em;
+    padding-bottom: 1em;
+}
+
+
+
+.select{
+    color: gray;
+    border-radius: 5px;
+    border: 0.5px solid gray;
+}
+
+.input-title{
+    padding-left: 2em;
+    display: inline;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 18px;
+}
+
+
+
+.select{
+    cursor: pointer;
+    width: 10em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#select-1{
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+#select-2{
+    margin-right: 2em;
+}
+
+.genr-btn{
+    display: inline-block;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(224, 224, 224, 0.589);
+    cursor: pointer;
+}
+
+
+.btn-save{
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 2em;
+    margin-right: .5em;
+    transition: 1s;
+    color: black;
+    border: none;
+    background-color: rgba(224, 224, 224, 0.589);
+}
+
+.btn-save:hover{
+    border: 1px solid gray;
+}
+
+.btn-send{
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: black;
+    color: white;
+    transition: .5s;
+}
+
+.btn-send:hover{
+    border: 1px solid gray;
+    color: black;
+    background-color: white;
+}
+
+.btn-close{
+    position: absolute;
+    margin-left: 2em;
+    background-color: transparent;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.btn-close img{
+    width: 18px;
+    margin-top: 5px;
+}
+
+.btn-close:hover{
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+/*============================ CONTENT ITEM END ============================*/
+
+
+/* =========================== CONTENT ITEM CREATE ====================== */
+
+
+.content-item-create{
+    width: 70em;
+    margin-left: 5em;
+    border-bottom: 1px solid gray;
+    margin-top: 3em;
+    padding-bottom: 1em;
+}
+
+
+/* =========================== CONTENT ITEM CREATE END ====================== */
+
+
+/* ============================ ADD BUTTON ============================== */
+
+.add-btn{
+    margin-top: 3em;
+    margin-left: 5em;
+    padding: 1.5em;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    background-color: rgb(0, 155, 0);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.add-btn:hover{
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+}
+
+
+
+
+
+
+
+/* ============================ ADD BUTTON END ============================== */
+
+
+
+
+
+
+/* ============================= MAIN CONTEINER END =================== */
+
+
+/* ============================= MEDIA SCREEN ========================= */
+
+
+/* MEDIA FOR MIN 1025 PX */
+
+@media (min-width: 1025px){
+    .media-size-block{
+        display: flex;
+    }
+    .btn-close{
+        margin-bottom: 1em;
+    }
+    .btn-close img{
+        margin: 0;
+    }
+}
+
+
+
+
+
+
+/* MAIN MEDIA AND MEDIA FOR 1024PX  (SHOW BUTGER BUTTON ON 1024PX)*/
+
+@media (max-width: 1024px){
+    .main{
+        display: grid;
+        grid-template-columns: 1fr 11fr;
+    }
+    .header__menu__burger-btn{
+        display: block;
+    }
+    .side-bar.open{
+        transform: translateX(100%);
+    }
+    .h4{
+        color: white;
+        margin-left: 1em;
+    }
+    .side-bar{
+        padding-top: 60px;
+        margin: 0;
+        position: absolute;
+        left: -350px;
+        top: 0;
+        width: 350px;
+        background-color: blueviolet;
+        transition: transform .5s;
+    }
+
+    .side-bar h3{
+        text-align: center;
+    }
+
+    .link-settings{
+        color: white;
+        font-size: 19px;
+        display: block;
+    }
+    .h2{
+        color: white;
+    }
+    .header__menu__burger-btn{
+        color: white;
+        background-color: transparent;
+    }
+    .media-size-block{
+        display: block;
+        text-align: center;
+        width: 50em;
+        margin-left: 2em;
+    }
+    .input-title{
+        text-align: center;
+        padding-right: 2em;
+        margin-bottom: 1em;
+    }
+    .button-block{
+        display: block;
+        text-align: center;
+    }
+    .btn-save{
+        margin: 0;
+        margin-top: 1em;
+        margin-right: .5em;
+    }
+    .btn-send{
+        margin-top: 1em;
+        margin-left: .5em;
+    }
+    .btn-close{
+        margin-top: 1em;
+    }
+    .btn-close img{
+        margin: 0;
+    }
+    .btn-save.create{
+        margin-right: 0;
+    }
+    .btn-send.create{
+        margin-right: 1em;
+    }
+}
+
+/* MEDIA FOR 768 PX */
+
+
+@media screen and (max-width: 768px){
+    .main{
+        grid-template-columns: 1fr 11fr;
+    }
+    .main-conteiner{
+        margin: 0;
+        padding: 0;
+    }
+    .media-size-block{
+        display: block;
+        width: 40em;
+    }
+    .input-title{
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1em;
+    }
+    
+    .button-block{
+        display: block;
+        text-align: center;
+        margin-top: 1em;
+        margin-right: 2em;
+    }
+    .select-block{
+        display: block;
+        text-align: center;
+    }
+}
+
+/* MEDIA FOR 640 PX */
+
+@media (max-width: 640px){
+    .main{
+        grid-template-columns: 12fr;
+    }
+    .main-conteiner h2{
+        text-align: center;
+        margin-right: 2em;
+    }
+    .media-size-block{
+        width: 30em;
+
+    }
+    .select-block{
+        display: block;
+        text-align: center;
+    }
+}
+
+@media (max-width: 550px){
+    .input-title{
+        text-align: center;
+        margin-left: 0;
+    }
+    #select-1{
+        margin: 0;
+    }
+    #select-2{
+        margin: 0;
+        margin-left: 1em;
+    }
+    .content-item-done{
+        margin-left: 2em;
+    }
+    .content-item-create{
+        margin-left: 2em;
+    }
+}
+
+
+@media (max-width: 500px){
+    .content-item-done{
+        margin-left: .5em;
+    }
+    .content-item-create{
+        margin-left: .5em;
+    }  
+}
+
+@media (max-width: 425px){
+    .content-item-done{
+        margin-left: 0;
+    }
+    .content-item-create{
+        margin-left: 0;
+    } 
+    .media-size-block{
+        width: 23em;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .input-title{
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 380px){
+    .media-size-block{
+    width: 21em;
+    }
+    .select-block{
+        display: block;
+        text-align: center;
+    }
+    #select-1{
+        margin: 0;
+        margin-left: 10px;
+    }
+    #select-2{
+        margin: 0;
+        margin-left: 0;
+    }
+    .btn-close{
+        margin-left: 1em;
+    }
+    .btn-close img{
+        margin-top: 0;
+    }
+    .add-btn{
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 320px){
+    
+}
+
+
+
+/* ============================= MEDIA SCREEN END ========================= */
+
+
+/* ======================== ERROR MESSAGE ========================*/
+
+.popup {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* The actual popup */
+.popup .popuptext {
+    /* visibility: hidden; */
+    /* display: none; */
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+    visibility: visible;
+}
+
+
+
+/* ======================== ERROR MESSAGE END ========================*/

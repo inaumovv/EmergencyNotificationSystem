@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load notifications_tags %}
+
+{% block title %}
+	<title>Отправленные оповещения</title>
+{% endblock %}
+
+{% block content %}
+    {{ sent_notifications }}
+    <div class="main-conteiner">
+        <!-- H2 NAME -->
+        <h2>Отправленные уведомления</h2>
+        <!-- DATA STRING  -->
+        {% get_sent_notifications as sent_notifications %}
+        {% for sent_notification in sent_notifications %}
+            <div class="named-block">
+                <div class="font-size-settings first-name">{{ sent_notification.id }}</div>
+                <div class="font-size-settings second-status">{{ sent_notification.status }}</div>
+                <div class="font-size-settings third-time-send">{{ sent_notification.created_at }}</div>
+                <div class="font-size-settings fourth-time-delivery">{{ sent_notification.delivery_time }}</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

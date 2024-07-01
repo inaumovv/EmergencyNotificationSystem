@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+</head>
+
+    <body>
+        <div class="main">
+            <div class="login-conteiner">
+                <h2 class="h2">Вход</h2>
+                <h4 class="h4">Введите логин и пароль для входа</h4>
+                <form action="{% url 'user:login' %}" method="post" class="login-conteiner">
+                    {% csrf_token %}
+                    <div class="login-block popup">
+                        <input class="login-input" type="text" name='username' id="id_username" placeholder="Логин">
+                        {% if form.username.errors %}
+                        	<span class="popuptext" id="myPopup">{{ form.username.errors }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="login-block popup">
+                        <input class="password-input" type="password" name="password" id="id_password" placeholder="Пароль">
+                        {% if form.username.errors %}
+                        	<span class="popuptext" id="myPopup">{{ form.username.errors }}</span>
+                        {% endif %}
+                    </div>
+                    <button class="come-in-button" type="submit">Войти</button>
+                </form>
+            </div>
+        </div>
+    </body>
+
+</html>

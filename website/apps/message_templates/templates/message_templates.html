@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load message_templates_tags %}
+
+{% block title %}
+	<title>Шаблоны сообщений</title>
+{% endblock %}
+
+{% block content %}
+	 <div class="main-conteiner">
+            <!-- TITLE TABS -->
+            <h2>Сообщения</h2>
+            <!-- TAB CONTENT -->
+            <div class="content-conteniner second-copy">
+                <!-- CONTENT ITEM DONE -->
+                {% get_message_templates as message_templates %}
+                {% for message_template in message_templates %}
+                    <div class="content-item-done media-size-block">
+                        <form class="input-block" method="post" action="{% url 'message_templates:edit' message_template.id %}">
+                            {% csrf_token %}
+                            <!-- INPUT NAME-->
+                            <input class="font-size-settings input-title" type="text" name="name" value="{{ message_template.name }}">
+                            <!-- SECOND INPUT -->
+                            <input class="font-size-settings input-mms" type="text" name="text" value="{{ message_template.text }}">
+                            <button class="font-size-settings genr-btn btn-save" type="submit">Сохранить изменения</button>
+                        </form>
+                        <form class="input-block" method="post" action="{% url 'message_templates:delete' message_template.id %}">
+                            {% csrf_token %}
+                            <button class="font-size-settings genr-btn btn-close" type="submit">
+                                <img src="{% static 'images/close-btn.png' %}" alt="">
+                            </button>
+                        </form>
+
+                    </div>
+                {% endfor %}
+                <!-- CONTENT ITEM CREATE -->
+                <div class="content-item-create media-size-block">
+                    <form class="input-block" method="post" action="{% url 'message_templates:add' %}">
+                        {% csrf_token %}
+                        <!-- INPUT NAME -->
+                        <div class="input-block-error popup">
+                            <input class="font-size-settings input-title create" type="text" name="name" id="id_name" placeholder="Название" required>
+                            {% if form.name.errors %}
+                                <span class="popuptext" id="myPopup">{{ form.name.errors }}</span>
+                            {% endif %}
+                        </div>
+                        <!-- SECOND INPUT -->
+                        <div class="input-block-error popup">
+                            <input class="font-size-settings input-mms" type="text" name="text" id="id_text" placeholder="Текст" required>
+                            {% if form.text.errors %}
+                                <span class="popuptext" id="myPopup">{{ form.text.errors }}</span>
+                            {% endif %}
+                        </div>
+                        <button class="font-size-settings genr-btn btn-save create" type="submit">Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+{% endblock %}

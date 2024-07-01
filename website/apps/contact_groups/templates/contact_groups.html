@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load contact_group_tags %}
+
+{% block title %}
+	<title>Группы контактов</title>
+{% endblock %}
+
+{% block content %}
+	<div class="main-conteiner">
+            <!-- H2 NAME PAGE -->
+            <h2>Группы контактов</h2>
+            <div class="content-conteniner second-copy">
+                {% get_contact_groups as contact_groups %}
+                {% for contact_group in contact_groups %}
+                    <!-- CONTENT ITEM DONE -->
+                    <div class="content-item-done media-size-block">
+                        <!-- INPUT BLOCK -->
+                        <form class="input-block" method="post" enctype="multipart/form-data" action="{% url 'contact_groups:edit' contact_group.id %}">
+                        {% csrf_token %}
+                            <!-- INPUT NAME-->
+                            <div class="input-block-error popup">
+                                <input class="font-size-settings input-title" type="text" name="group_name" id="id_group_name" value="{{ contact_group.group_name }}" required>
+                                {% if forms.group_name.errors %}
+                                	<span class="popuptext" id="myPopup">{{ forms.group_name.errors }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- SECOND INPUT -->
+                            <div class="input-block-error popup">
+                                <input class="font-size-settings input-file" type="file" name="file" id="id_file" title="{{ contact_group.filename }}" required>
+                                {% if forms.file.errors %}
+                                	<span class="popuptext" id="myPopup">{{ forms.file.errors }}</span>
+                                {% endif %}
+                            </div>
+                            <button class="font-size-settings genr-btn btn-save" type="submit">Сохранить изменения</button>
+                        </form>
+                        <!-- BUTTONS -->
+                        <form method="post" action="{% url 'contact_groups:delete' contact_group.id %}">
+                            {% csrf_token %}
+                                <button class="font-size-settings genr-btn btn-close" type="submit">
+                                    <img src="{% static 'images/close-btn.png' %}" alt="">
+                                </button>
+                        </form>
+
+                    </div>
+                {% endfor %}
+                <!-- CONTENT ITEM CREATE -->
+                <div class="content-item-create media-size-block">
+                    <!-- INPUT BLOCK -->
+                    <form class="input-block" method="post" action="{% url 'contact_groups:add' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <!-- INPUT NAME -->
+                        <div class="input-block-error popup">
+                            <input class="font-size-settings input-title" type="text" name="group_name" id="id_group_name" placeholder="Название" required>
+                            {% if forms.group_name.errors %}
+                                <span class="popuptext" id="myPopup">{{ forms.group_name.errors }}</span>
+                            {% endif %}
+                        </div>
+                        <!-- SECOND INPUT -->
+                        <div class="input-block-error popup">
+                            <input class="font-size-settings input-file" type="file" name="file" id="id_file" accept=".xlsx, .xls" required>
+                            {% if forms.file.errors %}
+                                <span class="popuptext" id="myPopup">{{ forms.file.errors }}</span>
+                            {% endif %}
+                        </div>
+                        <button class="font-size-settings genr-btn btn-save create">Добавить</button>
+                    </form>
+                    <!-- BUTTONS BLOCK-->
+                </div>
+                <!-- ADD BUTTON -->
+            </div>
+    </div>
+{% endblock %}

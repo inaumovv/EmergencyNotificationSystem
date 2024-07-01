@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load message_templates_tags %}
+{% load contact_group_tags %}
+{% load notifications_tags %}
+
+{% block title %}
+	<title>Шаблоны оповещений</title>
+{% endblock %}
+
+{% block content %}
+	 <div class="main-conteiner">
+            <!-- TITLE TABS -->
+             <!-- H2 NAME PAGE -->
+            <h2>Шаблоны уведомлений</h2>
+            <!-- MAIN CONTENT -->
+            <div class="content-conteniner">
+                <!-- CONTENT ITEM DONE -->
+                {% get_contact_groups as contact_groups %}
+                {% get_message_templates as message_templates %}
+                {% get_notification_templates as notification_templates %}
+
+                {% for notification_template in notification_templates %}
+                    <div class="content-item-done media-size-block">
+                        <form class="input-block-error popup" method="post" action="{% url 'notifications:templates_edit' notification_template.id %}">
+                        {% csrf_token %}
+                            <input class="font-size-settings input-title" type="text" name="name" id="id_name" placeholder="Название" value="{{ notification_template.name }}">
+                            <select class="font-size-settings select" name="contact_group" id="id_contact_group">
+                                <option selected value="{{ notification_template.contact_group }}">{{ notification_template.contact_group__group_name }}</option>
+                                {% for contact_group in contact_groups %}
+                            	    <option value="{{ contact_group.id }}">{{ contact_group.group_name }}</option>
+                                {% endfor %}
+                            </select>
+                            <!-- SECOND SELECT -->
+                            <select class="font-size-settings select" name="message_template" id="id_message_template">
+                                <option selected value="{{ notification_template.message_template }}">{{ notification_template.message_template__name }}</option>
+                                {% for message_template in message_templates %}
+                            	    <option value="{{ message_template.id }}">{{ message_template.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="font-size-settings genr-btn btn-save" type="submit">Сохранить</button>
+                        </form>
+
+                        <!-- BUTTONS -->
+                        <form class="button-block" method="post" action="{% url 'notifications:templates_delete' notification_template.id %}">
+                            {% csrf_token %}
+                            <a class="font-size-settings genr-btn btn-send" href="{% url 'notifications:templates_send'%}?notification_template_id={{ notification_template.id }}">Отправить</a>
+                            <button class="font-size-settings genr-btn btn-close" type="submit"><img src="{% static 'images/close-btn.png' %}"
+                                    alt="">
+                            </button>
+                        </form>
+                    </div>
+                {% endfor %}
+                <!-- CONTENT ITEM CREATE -->
+                <form class="content-item-done media-size-block" method="post" action="{% url 'notifications:templates_add' %}">
+                {% csrf_token %}
+                    <!-- INPUT -->
+                    <div class="input-block-error popup">
+                        <input class="font-size-settings input-title" type="text" name="name" id="id_name" placeholder="Название" required>
+                    </div>
+                    <!-- SELECT BLOCK -->
+                        <!-- FIRST SELECT -->
+                    <select class="font-size-settings select" name="contact_group" id="id_contact_group" required>
+                        <option disabled selected>Группа контактов</option>
+                        {% for contact_group in contact_groups %}
+                            <option value="{{ contact_group.id }}">{{ contact_group.group_name }}</option>
+                        {% endfor %}
+                    </select>
+                        <!-- SECOND SELECT -->
+                    <select class="font-size-settings select" name="message_template" id="id_message_template" required>
+                        <option disabled selected>Шаблон сообщения</option>
+                        {% for message_template in message_templates %}
+                            <option value="{{ message_template.id }}">{{ message_template.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <!-- BUTTON BLOCK -->
+                    <div class="button-block">
+                        <button class="font-size-settings genr-btn btn-save create" type="submit">Добавить</button>
+                    </div>
+                </form>
+            </div>
+     </div>
+{% endblock %}

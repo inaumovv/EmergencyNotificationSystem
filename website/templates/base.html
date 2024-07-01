@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/settings.css' %}">
+    <link rel="stylesheet" href="{% static 'css/settingscopy.css' %}">
+    <link rel="stylesheet" href="{% static 'css/settings2.css' %}">
+    <link rel="stylesheet" href="{% static 'css/settings3.css' %}">
+    <script defer src="{% static 'js/app.js' %}"></script>
+</head>
+
+<body>
+    <!-- MAIN CONTEINER (ALL PAGE) -->
+    <div class="main">
+        <!-- HEADER (SIDE BAR) -->
+        <div class="header">
+            <!-- COMPACT BUTTON -->
+            <button class="header__menu__burger-btn" id="burger"><span></span><span></span><span></span></button>
+            <!-- SIDE BAR LIST  -->
+            <header class="side-bar open">
+                <h3 class="h3">Система экстренных уведомлений</h3>
+                <nav class="menu">
+                    <ul class="ul">
+                        <h4 class="h4">Вкладки</h4>
+                        <li>
+                            <a class="link-settings" href="{% url 'notifications:templates_index' %}">Шаблоны уведомлений</a>
+                        </li>
+                        <li><a {% if 'message-templates' in request.path %} class="link-settings active" {% else %} class="link-settings"{% endif %} href="{% url 'message_templates:index' %}">Сообщения</a>
+                        </li>
+                        <li>
+                            <a {% if 'contact-groups' in request.path %} class="link-settings active" {% else %} class="link-settings"{% endif %} href="{% url 'contact_groups:index' %}">Группы контактов</a>
+                        </li>
+                        <li>
+                            <a {% if 'sent-notifications' in request.path %} class="link-settings active" {% else %} class="link-settings"{% endif %} href="{% url 'notifications:sent_index' %}">Отправленные уведомления</a>
+                        </li>
+                        <li>
+                            <a class="li-btn-log-out" href="{% url 'user:logout' %}">
+                                <button class="log-out">
+                                    <img src="{% static 'images/log-out.png' %}" alt="">
+                                </button>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+</body>
+
+</html>
