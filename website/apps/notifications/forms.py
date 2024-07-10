@@ -1,7 +1,5 @@
 from django import forms
 
-from apps.contact_groups.models import ContactGroup
-from apps.message_templates.models import MessageTemplate
 from apps.notifications.models import NotificationTemplate
 
 

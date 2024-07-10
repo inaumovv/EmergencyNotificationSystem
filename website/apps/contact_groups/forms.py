@@ -1,12 +1,10 @@
-import uuid
-
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.files import File
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.deconstruct import deconstructible
 
 from apps.contact_groups.models import ContactGroup
-from services.repositories.contact_groups_repository import ContactGroupsRepository
 
 
 @deconstructible
@@ -18,10 +16,8 @@ class FileValidator:
         self.validate_file_format(filename)
 
     def validate_file_format(self, filename: str):
-        if not filename.endswith('.xlsx') and not filename.endswith('.xls'):
-            raise ValidationError('Поддерживаются только .xlsx и .xls файлы.', code=self.code)
-
-    # ToDo сделать проверку содержимого файла, наличие всех нужных полей
+        if not filename.endswith('.xlsx'):
+            raise ValidationError('Поддерживаются только .xlsx файлы.', code=self.code)
 
 
 class ContactGroupForm(forms.ModelForm):
@@ -30,7 +26,7 @@ class ContactGroupForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        file = self.cleaned_data['file']
+        file: InMemoryUploadedFile = self.cleaned_data['file']
         instance.filename = file.name
         if commit:
             instance.save()

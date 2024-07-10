@@ -1,8 +1,8 @@
 from celery import shared_task
 
-from services.s3_client import S3Client
+from services.s3.s3_client import S3Client
 from website import settings
-from website.celery import app
+from website.settings import logger
 
 s3_client = S3Client(
     access_key=settings.AWS_ACCESS_KEY_ID,
@@ -17,6 +17,7 @@ def upload_file(self, file: bytes, s3_object_name: int):
     try:
         s3_client.upload_file(file, s3_object_name)
     except Exception as e:
+        logger.error(e)
         raise self.retry(exc=e)
 
 
@@ -25,6 +26,7 @@ def delete_file(self, s3_object_name: int):
     try:
         s3_client.delete_file(s3_object_name)
     except Exception as e:
+        logger.error(e)
         raise self.retry(exc=e)
 
 
@@ -33,4 +35,5 @@ def update_file(self, file, s3_object_name: int):
     try:
         s3_client.update_file(file, s3_object_name)
     except Exception as e:
+        logger.error(e)
         raise self.retry(exc=e)

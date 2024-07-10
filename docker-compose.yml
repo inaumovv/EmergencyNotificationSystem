@@ -1,0 +1,92 @@
+version: '3.8'
+
+services:
+  website:
+    build: ./website
+    container_name: website
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - ./website:/usr/src/apps/website
+      - django_static_volume:/usr/src/apps/website/static
+    depends_on:
+      - rmq
+      - postgres
+      - redis
+    env_file:
+      - ./website/.env
+
+  worker:
+    build: ./worker
+    container_name: worker
+    restart: always
+    ports:
+      - 8001:8001
+    volumes:
+      - ./worker:/usr/src/apps/worker
+    depends_on:
+      - website
+      - rmq
+      - postgres
+      - redis
+    env_file:
+      - ./worker/.env
+
+
+  rebalancer:
+    build: ./rebalancer
+    container_name: rebalancer
+    restart: always
+    ports:
+      - 8002:8002
+    volumes:
+      - ./rebalancer:/usr/src/apps/worker
+    depends_on:
+      - worker
+      - website
+      - rmq
+      - postgres
+      - redis
+    env_file:
+      - ./rebalancer/.env
+
+  rmq:
+    image: rabbitmq:3.12-management
+    restart: always
+    container_name: rmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
+
+    volumes:
+      - rabbitmq_data_volume:/var/lib/rabbitmq/
+    ports:
+      - 1234:15672
+      - 5671-5672:5671-5672
+
+  postgres:
+    image: postgres:latest
+    container_name: postgresdb
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=strong_password
+      - POSTGRES_DB=django_db
+
+  redis:
+    restart: always
+    container_name: redis
+    image: redis:latest
+    volumes:
+      - redis_volume:/var/lib/redis/data/
+    ports:
+      - 6379:6379
+
+volumes:
+  postgres_volume:
+  django_static_volume:
+  rabbitmq_data_volume:
+  redis_volume:
+

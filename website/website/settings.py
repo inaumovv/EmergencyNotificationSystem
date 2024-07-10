@@ -9,12 +9,16 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import logging
 import os
 from pathlib import Path
 from kombu import Queue, Exchange
 from dotenv import load_dotenv
 
 load_dotenv()
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -40,13 +42,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'rest_framework.authtoken',
     'rest_framework',
     'debug_toolbar',
+    'djoser',
 
     'apps.user',
     'apps.notifications',
     'apps.message_templates',
-    'apps.contact_groups'
+    'apps.contact_groups',
+    'api'
 
 ]
 
@@ -84,17 +89,6 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_NAME'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -113,6 +107,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -126,12 +138,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
+DEBUG_TOOLBAR_CONFIG = {'IS_RUNNING_TESTS': False}
 
 INTERNAL_IPS = ['127.0.0.1']
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
-# STATIC_ROOT = BASE_DIR / 'static'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -142,7 +155,7 @@ LOGIN_REDIRECT_URL = 'notifications:templates_index'
 LOGIN_URL = 'user:login'
 LOGOUT_REDIRECT_URL = 'user:login'
 
-REDIS_HOST = '127.0.0.1'
+REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
 REDIS_PORT = '6379'
 CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
@@ -153,19 +166,16 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_BROKER_CONNECTION_RETRY = True
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
-# CELERY_QUEUES = (
-#     Queue('high', Exchange('high'), routing_key='high'),
-#     Queue('normal', Exchange('normal'), routing_key='normal'),
-# )
-# CELERY_DEFAULT_QUEUE = 'normal'
-# CELERY_DEFAULT_EXCHANGE = 'normal'
-# CELERY_DEFAULT_ROUTING_KEY = 'normal'
-# CELERY_ROUTES = {
-#     # -- HIGH PRIORITY QUEUE -- #
-#     'apps.contact_groups.tasks.upload_file': {'queue': 'normal'},
-#     # -- LOW PRIORITY QUEUE -- #
-#     'apps.contact_groups.tasks.delete_file': {'queue': 'normal'},
-# }
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 ENDPOINT_URL = 'https://s3.storage.selcloud.ru'
+
+RABBITMQ_HOST = os.getenv('RABBITMQ_HOST')
+RABBITMQ_USER = os.getenv('RABBITMQ_USER')
+RABBITMQ_PASSWORD = os.getenv('RABBITMQ_PASSWORD')
+
+
+try:
+    from .dev_settings import *
+except ImportError:
+    from .prod_settings import *

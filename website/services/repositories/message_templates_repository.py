@@ -6,5 +6,5 @@ class MessageTemplatesRepository(BaseRepository):
     model: MessageTemplate = MessageTemplate
 
     @classmethod
-    def get_all_message_templates(cls, fields: list | tuple = None):
-        return cls.get_objects(object_=cls.model.objects, fields=fields)
+    def get_all_message_templates(cls, fields: list | tuple = None, **filters):
+        return cls.get_objects(object_=cls.model.objects, fields=fields, **filters)

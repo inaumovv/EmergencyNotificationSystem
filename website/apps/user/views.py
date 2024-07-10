@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LoginView
 
-from services.mixins import ContextDataMixin
+from services.mixins.context_data_mixin import ContextDataMixin
 from apps.user.forms import UserLoginForm
 
 

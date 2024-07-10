@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from website import settings
 
@@ -25,6 +25,9 @@ urlpatterns = [
     path('', include('apps.user.urls', namespace='user')),
     path('message-templates/', include('apps.message_templates.urls', namespace='message_templates')),
     path('contact-groups/', include('apps.contact_groups.urls', namespace='contact_groups')),
+    path('api/v1/notifications/', include('api.urls', namespace='api')),
+    path('api/v1/token-auth/', include('djoser.urls')),
+    re_path('token-auth/', include('djoser.urls.authtoken')),
 ]
 
 if settings.DEBUG is True:
